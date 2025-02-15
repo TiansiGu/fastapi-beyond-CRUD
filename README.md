@@ -71,8 +71,9 @@ Alternatively, you can run the application using Docker:
 docker compose up -d
 ```
 ## Running Tests
-Run the tests using this command
+Run the tests using this command. You must install pytest first.
 ```bash
+pip install pytest
 pytest
 ```
 
