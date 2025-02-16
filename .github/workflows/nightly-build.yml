@@ -2,7 +2,7 @@ name: Nightly Build
 
 on:
   schedule:
-    - cron: '45 18 * * *' # Daily
+    - cron: '0 8 * * *' # Daily
 #  push: # for build testing purpose, to be deleted
 #    branches: [test-check-commit]
 
@@ -14,9 +14,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
-#      - name: Set Timezone to PST
-#        run: sudo timedatectl set-timezone America/Los_Angeles
 
       - name: Copy .env.example to .env
         run: cp .env.example .env
