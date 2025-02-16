@@ -28,14 +28,24 @@ jobs:
         run: docker-compose up -d --build
 
       - name: Run Tests in the Container
-#        run: docker-compose run --rm web pytest
         run: docker-compose exec -T web pytest
 
-  #    - name: Install required packages
-  #      run: pip install -r requirements.txt
-  #
-  #    - name: Copy environment variables
-  #      run: cp .env.example .env
-  #
-  #    - name: Run database migrations
-  #      run: alembic upgrade head
+#      - name: Extract metadata (tags, labels) for Docker
+#        id: meta
+#        uses: docker/metadata-action@v5
+#        with:
+#          images: |
+#            tiansigu/fastapi-tiansi
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+              username: ${{ secrets.DOCKERHUB_USERNAME }}
+              password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: tiansigu/fastapi-tiansi:latest
