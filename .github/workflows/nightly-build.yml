@@ -1,0 +1,34 @@
+name: Nightly Build
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily at 00:00 UTC
+  push: # for build testing purpose, to be deleted
+    branches: [test-check-commit]
+
+jobs:
+  build:
+    name: Run Nightly Build in PST
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Timezone to PST
+        run: sudo timedatectl set-timezone America/Los_Angeles
+
+      - name: Run Docker on Ubuntu
+        run: docker compose up -d
+
+      - name: Run Tests in the Container
+        run: docker compose exec web pytest
+
+  #    - name: Install required packages
+  #      run: pip install -r requirements.txt
+  #
+  #    - name: Copy environment variables
+  #      run: cp .env.example .env
+  #
+  #    - name: Run database migrations
+  #      run: alembic upgrade head
