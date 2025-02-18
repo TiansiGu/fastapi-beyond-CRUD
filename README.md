@@ -71,11 +71,18 @@ Alternatively, you can run the application using Docker:
 docker compose up -d
 ```
 ## Running Tests
-Run the tests using this command. You must install pytest first.
+Run the tests using this command. You must ensure pytest is installed first.
 ```bash
-pip install pytest
 pytest
 ```
+
+## CI Workflows
+### Check Conventional Commits
+Commit messages mad to any feature branches need to comply with [convential commit format](https://www.conventionalcommits.org/en/v1.0.0-beta.2/). When you create a pull request from a feature branch to main branch, the check-conventional-commit workflow will run to check commits and will send notification if it fails. Go to .github/workflows/check-conventional-commit.yml for details.
+
+### Nightly Build
+The main branch is configured with nightly build at 00:00 am PST. The build will build and run the application and the tests using Docker, and push the container image into DockerHub.
+To get the latest container image, visit the [registry](https://hub.docker.com/r/tiansigu/fastapi-tiansi).
 
 ## Contributing
 I welcome contributions to improve the documentation! You can contribute [here](https://github.com/jod35/fastapi-beyond-crud-docs).
